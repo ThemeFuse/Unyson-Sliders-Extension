@@ -12,3 +12,4 @@ $manifest['requirements'] = array(
 		'population-method' => array()
 	)
 );
+$manifest['github_update'] = 'ThemeFuse/Unyson-Sliders-Extension';
