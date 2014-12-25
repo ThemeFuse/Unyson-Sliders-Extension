@@ -453,6 +453,13 @@ class FW_Extension_Slider extends FW_Extension
 				array(),
 				fw()->manifest->get_version()
 			);
+			wp_enqueue_style('fw-selectize');
+			wp_enqueue_script(
+				'fw-population-method-categories',
+				$this->get_declared_URI('/static/js/population-method.js'),
+				array('fw-selectize'),
+				fw()->manifest->get_version()
+			);
 		}
 	}
 
