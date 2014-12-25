@@ -10,7 +10,6 @@ $manifest['standalone'] = true;
 $manifest['requirements'] = array(
 	'extensions' => array(
 		'population-method' => array(),
-		'page-builder' => array(),
 	)
 );
 $manifest['github_update'] = 'ThemeFuse/Unyson-Sliders-Extension';
