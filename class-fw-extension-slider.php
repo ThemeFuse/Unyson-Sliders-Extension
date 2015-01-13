@@ -182,12 +182,12 @@ class FW_Extension_Slider extends FW_Extension
 				4 => sprintf(__('%s updated.', 'fw'), $singular),
 				5 => isset($_GET['revision']) ? sprintf(__('%s restored to revision from %s', 'fw'), $singular,
 						wp_post_revision_title((int)$_GET['revision'], false)) : false,
-				6 => sprintf(__('%s published.'), $singular),
+				6 => sprintf(__('%s published.', 'fw'), $singular),
 				7 => __('Page saved.', 'fw'),
-				8 => sprintf(__('%s submitted.'), $singular),
-				9 => sprintf(__('%s scheduled for: %s.'), $singular,
+				8 => sprintf(__('%s submitted.', 'fw'), $singular),
+				9 => sprintf(__('%s scheduled for: %s.', 'fw'), $singular,
 					'<strong>' . date_i18n('M j, Y @ G:i') . '</strong>'),
-				10 => sprintf(__('%s draft updated.'), $singular),
+				10 => sprintf(__('%s draft updated.', 'fw'), $singular),
 			);
 		}
 
