@@ -123,7 +123,7 @@ class FW_Extension_Slider extends FW_Extension
 			}
 		}
 
-		return $active_sliders;
+		return apply_filters('fw_ext_slider_activated', $active_sliders);
 	}
 
 	/**
