@@ -270,8 +270,11 @@ class FW_Extension_Slider extends FW_Extension
 		$child_extension = $this->get_child($selected);
 		$multimedia_types = $child_extension->get_multimedia_types();
 
-		if (is_null($child_extension)) {
-			$message = __('This slider was created correctly, but the code implementation was delete from source code.Delete this post or recovery slider implementation',
+		if (
+			is_null($child_extension) or
+			!in_array($selected, $this->get_active_sliders())
+		) {
+			$message = __('This slider was created correctly, but the code implementation was delete from source code or blocked from filter.Delete this post or recovery slider implementation',
 				'fw');
 			wp_die($message);
 		}
