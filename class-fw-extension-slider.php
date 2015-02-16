@@ -62,7 +62,7 @@ class FW_Extension_Slider extends FW_Extension
 	 */
 	public function _get_link()
 	{
-		return 'edit.php?post_type=' . $this->post_type;
+		return self_admin_url('edit.php?post_type=' . $this->post_type);
 	}
 
 	/*Hide edit bulk action from table*/
