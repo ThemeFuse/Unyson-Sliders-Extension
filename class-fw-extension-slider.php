@@ -18,6 +18,25 @@ class FW_Extension_Slider extends FW_Extension
 		}
 	}
 
+	/**
+	 * Do manually array_merge($old_values, $new_values) on slider post save
+	 * because that feature was removed in https://github.com/ThemeFuse/Unyson/commit/e75ff06a2262e49576fac647e8d3651ab842b7b1
+	 * int $post_id
+	 * WP_Post $post
+	 * array $old_values
+	 */
+	public function _action_slider_post_merge_old_db_option_values($post_id, $post, $old_values)
+	{
+		if ($post->post_type !== $this->post_type) {
+			return;
+		}
+
+		fw_set_db_post_option(
+			$post_id,
+			null,
+			array_merge($old_values, fw_get_db_post_option($post_id))
+		);
+	}
 	private function add_admin_filters()
 	{
 		add_filter('fw_post_options', array($this, '_admin_filter_load_options'), 10, 2);
@@ -29,6 +48,7 @@ class FW_Extension_Slider extends FW_Extension
 		add_filter('bulk_actions-edit-' . $this->get_post_type(),
 			array($this, '_admin_filter_customize_bulk_actions'));
 		add_filter('parent_file', array($this, '_set_active_submenu'));
+
 
 	}
 
@@ -43,6 +63,8 @@ class FW_Extension_Slider extends FW_Extension
 		add_action('admin_menu', array($this, '_admin_action_replace_submit_meta_box'));
 		add_action('manage_' . $this->get_post_type() . '_posts_custom_column',
 			array($this, '_admin_action_manage_custom_column'), 10, 2);
+		add_action('fw_save_post_options', array($this, '_action_slider_post_merge_old_db_option_values'), 10, 3);
+
 	}
 
 	function _set_active_submenu($parent_file)
