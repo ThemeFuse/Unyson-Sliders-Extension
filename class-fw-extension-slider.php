@@ -37,6 +37,7 @@ class FW_Extension_Slider extends FW_Extension
 			array_merge($old_values, fw_get_db_post_option($post_id))
 		);
 	}
+	
 	private function add_admin_filters()
 	{
 		add_filter('fw_post_options', array($this, '_admin_filter_load_options'), 10, 2);
