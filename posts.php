@@ -22,7 +22,7 @@ register_post_type(fw()->extensions->get('slider')->get_post_type(), array(
 	'show_ui' => true,
 	'show_in_nav_menus' => false,
 	'query_var' => true,
-    'rewrite' => array('slug' => fw()->extensions->get('slider')->get_post_type()),
+	'rewrite' => array('slug' => fw()->extensions->get('slider')->get_post_type()),
 	'has_archive' => true,
 	'hierarchical' => false,
 	'menu_position' => null,

@@ -699,8 +699,8 @@
 				var title = $(this).find('img:first').attr('title');
 				// append the caption
 				if (title != undefined && ('' + title).length) {
-                    $(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
-                }
+					$(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
+				}
 			});
 		}
 
