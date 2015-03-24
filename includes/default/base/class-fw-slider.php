@@ -15,11 +15,11 @@ class FW_Slider extends FW_Extension
 			'label' => $this->get_name(),
 			'small' => array(
 				'height' => 100,
-				'src' => $this->get_declared_uri('/static/images/thumb.jpg'),
+				'src' => $this->locate_URI('/static/images/thumb.jpg'),
 			),
 			'large' => array(
 				'height' => 208,
-				'src' => $this->get_declared_uri('/static/images/preview.jpg')
+				'src' => $this->locate_URI('/static/images/preview.jpg')
 			)
 		);
 	}
