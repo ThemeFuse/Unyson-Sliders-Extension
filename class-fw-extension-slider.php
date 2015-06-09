@@ -289,9 +289,7 @@ class FW_Extension_Slider extends FW_Extension
 		global $post;
 		$selected = fw_get_db_post_option($post->ID, $this->get_name() . '/selected');
 		$title_value = fw_get_db_post_option($post->ID, $this->get_name() . '/' . $selected . '/title');
-
 		$child_extension = $this->get_child($selected);
-		$multimedia_types = $child_extension->get_multimedia_types();
 
 		if (
 			is_null($child_extension) or
@@ -301,6 +299,8 @@ class FW_Extension_Slider extends FW_Extension
 				'fw');
 			wp_die($message);
 		}
+
+		$multimedia_types = $child_extension->get_multimedia_types();
 
 		if (empty($multimedia_types)) {
 			$message = __('This slider was created correctly, but the multimedia_types from config.php file was deleted, please set multimedia_types for this slider type.',
