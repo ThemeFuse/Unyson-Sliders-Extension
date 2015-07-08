@@ -38,7 +38,10 @@ class FW_Extension_Slider extends FW_Extension {
 		);
 
 
-		add_action( 'fw_post_options_update', array( $this, '_action_slider_post_update_merged_old_db_option_values' ), 11, 4 );
+		add_action( 'fw_post_options_update', array(
+			$this,
+			'_action_slider_post_update_merged_old_db_option_values'
+		), 11, 4 );
 
 	}
 
@@ -358,11 +361,16 @@ class FW_Extension_Slider extends FW_Extension {
 					'title'   => __( 'Slider Configuration', 'fw' ),
 					'type'    => 'box',
 					'options' => array(
-						'populated' => array(
+						'populated'   => array(
 							'type'  => 'hidden',
 							'value' => true
 						),
-						'title'     => array(
+						'slider_type' => array(
+							'type'                  => 'hidden',
+							'value'                 => $selected,
+							'save-in-separate-meta' => true
+						),
+						'title'       => array(
 							'type'  => 'text',
 							'label' => __( 'Slider Title', 'fw' ),
 							'value' => $title_value,
@@ -378,14 +386,9 @@ class FW_Extension_Slider extends FW_Extension {
 		$custom_settings = $this->get_slider_options();
 
 		if ( ! empty( $custom_settings ) ) {
-			$selected  = fw_get_db_post_option(
-				$post->ID,
-				$this->get_name() . '/selected'
-			);
-			$custom_settings_value = fw_get_db_post_option(
-				$post->ID,
-				$this->get_name() . '/' . $selected . '/custom-settings'
-			);
+			$selected              = fw_get_db_post_option( $post->ID, $this->get_name() . '/selected' );
+			$custom_settings_value = fw_get_db_post_option( $post->ID, $this->get_name() . '/' . $selected . '/custom-settings' );
+
 			$options['slider-sidebar-metabox']['options']['custom-settings'] = array(
 				'label'         => false,
 				'desc'          => false,
@@ -542,18 +545,48 @@ class FW_Extension_Slider extends FW_Extension {
 		return $choices;
 	}
 
-	public function get_populated_sliders() {
-		$posts = get_posts( array(
-			'post_type'   => $this->post_type,
-			'numberposts' => - 1
-		) );
+	/**
+	 * Get populated sliders.
+	 *
+	 * If want to get the sliders from a slider type, set the next array
+	 * array('slider_types' => array('slider_type_name'))
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	public function get_populated_sliders( $params = array() ) {
+
+		$params     = (array) $params;
+		$meta_query = array();
+
+		if ( array_key_exists( 'slider_types', $params ) && ! empty( $params['slider_types'] ) ) {
+			$collector = array();
+			array_push( $collector, array(
+				'key'   => 'fw_option:slider_type',
+				'value' => $params['slider_types']
+			) );
+
+			$meta_query = array(
+				'meta_query' => $collector,
+			);
+		}
+
+		$posts = get_posts(
+			array_merge(
+				array(
+					'post_type'   => $this->post_type,
+					'numberposts' => - 1
+				),
+				$meta_query
+			)
+		);
 
 		foreach ( $posts as $key => $post ) {
 			$data = fw()->extensions->get( 'population-method' )->get_frontend_data( $post->ID );
 			if ( empty( $data['slides'] ) ) {
 				unset( $posts[ $key ] );
 			}
-
 		}
 
 		return $posts;
