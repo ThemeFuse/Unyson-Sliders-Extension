@@ -33,7 +33,7 @@
 					$delete_text = __('Move to Trash', 'fw');
 				?>
 				<a class="submitdelete deletion"
-				   href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo $delete_text; ?></a><?php
+				   href="<?php echo esc_attr(get_delete_post_link($post->ID)); ?>"><?php echo $delete_text; ?></a><?php
 			} ?>
 		</div>
 

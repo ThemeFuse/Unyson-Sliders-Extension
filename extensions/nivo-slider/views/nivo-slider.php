@@ -10,11 +10,15 @@
 	<section class="wrap-nivoslider theme-default">
 		<div class="nivoSlider">
 			<?php foreach ($data['slides'] as $id => $slide): ?>
-			<img  width='<?php echo $dimensions['width'];?>' height="<?php echo $dimensions['height']?>" src="<?php echo fw_resize($slide['src'], $dimensions['width'], $dimensions['height'], true); ?>" alt="<?php echo $slide['title'] ?>" title="#nivo-<?php echo $id ?>"/>
+			<img  width="<?php echo esc_attr($dimensions['width']); ?>"
+			      height="<?php echo esc_attr($dimensions['height']); ?>"
+			      src="<?php echo esc_attr(fw_resize($slide['src'], $dimensions['width'], $dimensions['height'], true)); ?>"
+			      alt="<?php echo esc_attr($slide['title']); ?>"
+			      title="#nivo-<?php echo esc_attr($id); ?>" />
 			<?php endforeach; ?>
 		</div>
 		<?php foreach ($data['slides'] as $id => $slide): ?>
-		<div id="nivo-<?php echo $id ?>" class="nivo-html-caption">
+		<div id="nivo-<?php echo esc_attr($id) ?>" class="nivo-html-caption">
 			<span><?php echo $slide['title'] ?></span>
 		</div>
 		<?php endforeach; ?>
