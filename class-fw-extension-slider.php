@@ -496,11 +496,11 @@ class FW_Extension_Slider extends FW_Extension {
 		return $options;
 	}
 
-	public function render_slider( $post_id, $dimensions ) {
+	public function render_slider( $post_id, $dimensions, $extra_data = array() ) {
 		$slider_name = fw_get_db_post_option( $post_id, $this->get_name() . '/selected' );
 
 		if ( ! is_null( $slider_name ) ) {
-			return $this->get_child( $slider_name )->render_slider( $post_id, $dimensions );
+			return $this->get_child( $slider_name )->render_slider( $post_id, $dimensions , $extra_data );
 		}
 	}
 

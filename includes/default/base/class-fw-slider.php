@@ -85,11 +85,11 @@ class FW_Slider extends FW_Extension
 		}
 	}
 
-	public function render_slider($post_id, $dimensions)
+	public function render_slider($post_id, $dimensions, $extra_data = array())
 	{
 		$this->add_static();
 		$data = $this->get_frontend_data($post_id);
-		return $this->render_view($this->get_name(), compact('data', 'dimensions'));
+		return $this->render_view($this->get_name(), compact('data', 'dimensions', 'extra_data'));
 	}
 
 	public function get_slider_options()
