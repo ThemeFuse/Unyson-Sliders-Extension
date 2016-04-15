@@ -10,10 +10,8 @@ class FW_Extension_Slider extends FW_Extension {
 	 * @internal
 	 */
 	public function _init() {
-		if ( is_admin() ) {
-			$this->add_admin_filters();
-			$this->add_admin_actions();
-		}
+		$this->add_admin_filters();
+		$this->add_admin_actions();
 	}
 
 	/**
@@ -22,7 +20,11 @@ class FW_Extension_Slider extends FW_Extension {
 	 */
 	public function _action_slider_post_update_merged_old_db_option_values( $post_id, $basekey, $subkey, $old_values ) {
 
-		if ( get_post_type( $post_id ) !== $this->post_type ) {
+		if (
+			get_post_type( $post_id ) !== $this->post_type
+			||
+			!fw_is_post_edit()
+		) {
 			return;
 		}
 
@@ -36,7 +38,6 @@ class FW_Extension_Slider extends FW_Extension {
 			null,
 			array_merge( (array) $old_values, fw_get_db_post_option( $post_id ) )
 		);
-
 
 		add_action( 'fw_post_options_update', array(
 			$this,
@@ -75,8 +76,11 @@ class FW_Extension_Slider extends FW_Extension {
 		add_filter( 'bulk_actions-edit-' . $this->get_post_type(),
 			array( $this, '_admin_filter_customize_bulk_actions' ) );
 		add_filter( 'parent_file', array( $this, '_set_active_submenu' ) );
-
-
+		add_filter( 
+			'fw_get_db_post_option:fw-storage-enabled', 
+			array($this, '_filter_disable_post_options_fw_storage'),
+			10, 2
+		);
 	}
 
 	public function get_post_type() {
@@ -281,7 +285,11 @@ class FW_Extension_Slider extends FW_Extension {
 		$meta             = (array) fw_get_db_post_option( $post->ID );
 
 		if ( isset( $_GET['action'] ) && $_GET['action'] === 'edit' ) {
-			if ( array_key_exists( $this->get_name(), $meta ) && ! is_null( $this->get_child( $meta['slider']['selected'] ) ) ) {
+			if (
+				array_key_exists( $this->get_name(), $meta )
+				&&
+				! is_null( $this->get_child( $meta['slider']['selected'] ) )
+			) {
 				$slider_name       = $meta['slider']['selected'];
 				$population_method = $this->get_child( $slider_name )->get_population_method( $meta['slider'][ $slider_name ]['population-method'] );
 				$slider_type       = $this->get_slider_type( $post->ID );
@@ -331,6 +339,7 @@ class FW_Extension_Slider extends FW_Extension {
 
 	public function load_post_edit_options() {
 		global $post;
+
 		$selected        = fw_get_db_post_option( $post->ID, $this->get_name() . '/selected' );
 		$title_value     = fw_get_db_post_option( $post->ID, $this->get_name() . '/' . $selected . '/title' );
 		$child_extension = $this->get_child( $selected );
@@ -592,4 +601,11 @@ class FW_Extension_Slider extends FW_Extension {
 		return $posts;
 	}
 
+	public function _filter_disable_post_options_fw_storage($enabled, $post_type) {
+		if ($this->get_post_type() === $post_type) {
+			$enabled = false;
+		}
+
+		return $enabled;
+	}
 }
