@@ -22,7 +22,7 @@
 			<?php if (empty($slide['desc'])): ?>
 				<span><?php echo $slide['title'] ?></span>
 			<?php else: ?>
-				<strong><?php echo $slide['title'] ?></strong> - <?php echo $slide['desc'] ?>
+				<span><strong><?php echo $slide['title'] ?></strong> - <?php echo $slide['desc'] ?><span>
 			<?php endif; ?>
 		</div>
 		<?php endforeach; ?>
