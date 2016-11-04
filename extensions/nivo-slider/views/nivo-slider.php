@@ -19,7 +19,11 @@
 		</div>
 		<?php foreach ($data['slides'] as $id => $slide): ?>
 		<div id="nivo-<?php echo esc_attr($id) ?>" class="nivo-html-caption">
-			<span><?php echo $slide['title'] ?></span>
+			<?php if (empty($slide['desc'])): ?>
+				<span><?php echo $slide['title'] ?></span>
+			<?php else: ?>
+				<strong><?php echo $slide['title'] ?></strong> - <?php echo $slide['desc'] ?>
+			<?php endif; ?>
 		</div>
 		<?php endforeach; ?>
 	</section>
