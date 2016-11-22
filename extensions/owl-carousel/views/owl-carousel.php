@@ -16,11 +16,22 @@
 					);
 				}
 				?>
-				<?php if ($oembed): ?>
 				<div class="item-video" style="height:<?php echo esc_attr($dimensions['height']); ?>px;">
-					<a class="owl-video" href="<?php echo esc_attr($slide['src']); ?>"></a>
+					<?php if ($oembed): ?>
+						<a class="owl-video" href="<?php echo esc_attr($slide['src']); ?>"></a>
+					<?php else: ?>
+						<?php
+						$video_type = parse_url($slide['src']);
+						$video_type = explode('.', $video_type['path']);
+						$video_type = array_pop($video_type);
+						$video_type = strtolower($video_type);
+						?>
+						<video controls width="100%" height="100%">
+							<source src="<?php echo esc_attr($slide['src']); ?>" type="video/<?php echo esc_attr($video_type); ?>" />
+							<p class="vjs-no-js"><?php esc_html_e('Please enable JavaScript', 'fw') ?></p>
+						</video>
+					<?php endif; ?>
 				</div>
-				<?php endif; ?>
 			<?php endif; ?>
 		<?php endforeach; ?>
 	</div>
