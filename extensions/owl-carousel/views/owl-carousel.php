@@ -19,7 +19,7 @@
 				<div class="item-video" style="height:<?php echo esc_attr($dimensions['height']); ?>px;">
 					<?php if ($oembed): ?>
 						<a class="owl-video" href="<?php echo esc_attr($slide['src']); ?>"></a>
-					<?php else: ?>
+					<?php else: // fixes https://github.com/ThemeFuse/Unyson/issues/2189 ?>
 						<?php
 						$video_type = parse_url($slide['src']);
 						$video_type = explode('.', $video_type['path']);
