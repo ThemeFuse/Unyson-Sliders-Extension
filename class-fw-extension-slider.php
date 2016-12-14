@@ -375,9 +375,12 @@ class FW_Extension_Slider extends FW_Extension {
 							'value' => true
 						),
 						'slider_type' => array(
-							'type'                  => 'hidden',
-							'value'                 => $selected,
-							'save-in-separate-meta' => true
+							'type'       => 'hidden',
+							'value'      => $selected,
+							'fw-storage' => array(
+								'type' => 'post-meta',
+								'post-meta' => 'fw_option:slider_type',
+							),
 						),
 						'title'       => array(
 							'type'  => 'text',
