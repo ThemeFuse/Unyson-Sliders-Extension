@@ -478,6 +478,7 @@ class FW_Extension_Slider extends FW_Extension {
 		foreach ( $active_sliders as $instance_name ) {
 
 			$slider_options = $this->get_child( $instance_name )->get_slider_options();
+			$population_methods = $this->get_child( $instance_name )->get_population_methods();
 
 			$options[ $instance_name ] = array(
 				'population-method' => array(
@@ -485,7 +486,8 @@ class FW_Extension_Slider extends FW_Extension {
 					'label'   => __( 'Population Method', 'fw' ),
 					'desc'    => __( 'Choose the population method for your slider', 'fw' ),
 					'value'   => '',
-					'choices' => $this->get_child( $instance_name )->get_population_methods()
+					'choices' => $population_methods,
+					'attr'    => count($population_methods) < 2 ? array('disabled' => 'disabled') : array(),
 				),
 				'title'             => array(
 					'type'  => 'text',
