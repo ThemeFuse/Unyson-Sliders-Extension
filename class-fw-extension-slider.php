@@ -487,7 +487,6 @@ class FW_Extension_Slider extends FW_Extension {
 					'desc'    => __( 'Choose the population method for your slider', 'fw' ),
 					'value'   => '',
 					'choices' => $population_methods,
-					'attr'    => count($population_methods) < 2 ? array('disabled' => 'disabled') : array(),
 				),
 				'title'             => array(
 					'type'  => 'text',
