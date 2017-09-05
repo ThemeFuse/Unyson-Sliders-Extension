@@ -14,12 +14,14 @@ class FW_Slider extends FW_Extension
 		return array(
 			'label' => $this->get_name(),
 			'small' => array(
-				'height' => 100,
-				'src' => $this->locate_URI('/static/images/thumb.jpg'),
+				'data-slider-type' => $this->get_name(),
+				'height'           => 100,
+				'src'              => $this->locate_URI( '/static/images/thumb.jpg' )
 			),
 			'large' => array(
-				'height' => 208,
-				'src' => $this->locate_URI('/static/images/preview.jpg')
+				'data-slider-type' => $this->get_name(),
+				'height'           => 208,
+				'src'              => $this->locate_URI( '/static/images/preview.jpg' )
 			)
 		);
 	}
