@@ -137,8 +137,9 @@ class FW_Extension_Slider extends FW_Extension {
 			case 'slider_design' :
 				$image = $this->get_slider_type( $post_id );
 				$link  = get_edit_post_link( $post_id );
+
 				if ( ! empty( $image ) ) {
-					echo '<a href="' . $link . '"><img height="100" src="' . $image['small']['src'] . '"/></a>';
+					echo '<a href="' . $link . '"><img data-slider-type="' . $image['small']['data-slider-type'] . '" height="100" src="' . $image['small']['src'] . '"/></a>';
 				}
 				break;
 			case 'number_of_images' :
